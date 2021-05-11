@@ -64,7 +64,7 @@ def make_net(input_shape):
     concatted26 = Concatenate()([upsamp25_1, upsamp25_2, conv24_3])
     conv27 = conv_layer(16, (3, 3), concatted26)
     upsamp28 = UpSampling2D()(conv27)
-    conv_out = Conv2D(filters=16, kernel_size=(3,3), activation="sigmoid")(upsamp28)
+    conv_out = Conv2D(filters=2, kernel_size=(3,3), activation="sigmoid")(upsamp28)
     
     model = Model(inputs=[img_layer], outputs=[conv_out])
     return model
