@@ -7,7 +7,7 @@ def make_net(input_shape):
     img_layer = Input(shape=input_shape)
 
 def conv_layer(filters, kernes_size, input0):
-    conv = Conv2D(filters=filters, kernes_size=kernes_size)(input0)
+    conv = Conv2D(filters=filters, kernes_size=kernes_size, padding="same")(input0)
     conv = BatchNormalization()(conv)
     conv = ReLu(conv)
     return conv
@@ -64,7 +64,7 @@ def make_net(input_shape):
     concatted26 = Concatenate()([upsamp25_1, upsamp25_2, conv24_3])
     conv27 = conv_layer(16, (3, 3), concatted26)
     upsamp28 = UpSampling2D()(conv27)
-    conv_out = Conv2D(filters=2, kernel_size=(3,3), activation="sigmoid")(upsamp28)
+    conv_out = Conv2D(filters=2, kernel_size=(3,3), padding="same", activation="sigmoid")(upsamp28)
     
     model = Model(inputs=[img_layer], outputs=[conv_out])
     return model
